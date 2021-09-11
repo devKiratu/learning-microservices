@@ -11,7 +11,10 @@ namespace PlatformService.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            //Required when your dbcontext inherits form IdentityDbContext since it has an implementation of this method, 
+            //not necessary in this case as DbContext has no implementation 
+            //of this method.
+            base.OnModelCreating(builder); 
             
             //fluent api settings
         }
