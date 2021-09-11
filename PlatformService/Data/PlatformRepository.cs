@@ -9,12 +9,10 @@ namespace PlatformService.Data
     public class PlatformRepository : IPlatformRepository
     {
         private readonly MainDbContext dbContext;
-        private readonly IPlatformRepository repository;
 
-        public PlatformRepository(MainDbContext dbContext, IPlatformRepository repository)
+        public PlatformRepository(MainDbContext dbContext)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
         public void CreatePlatform(Platform platform)
         {
