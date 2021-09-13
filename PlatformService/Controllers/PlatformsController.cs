@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlatformService.Data;
 using PlatformService.Dtos;
 using PlatformService.Models;
+using PlatformService.SyncDataServices.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace PlatformService.Controllers
     {
         private readonly IPlatformRepository repository;
         private readonly IMapper mapper;
+        private readonly ICommandDataClient client;
 
-        public PlatformsController(IPlatformRepository repository, IMapper mapper)
+        public PlatformsController(IPlatformRepository repository, IMapper mapper, ICommandDataClient client)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         [HttpGet("{id}", Name = "GetPlatform")]
@@ -56,7 +59,7 @@ namespace PlatformService.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(PlatformReadDto),200)]
-        public IActionResult CreatePlatform([FromBody] PlatformCreateDto model)
+        public async Task<IActionResult> CreatePlatform([FromBody] PlatformCreateDto model)
         {
             var platform = mapper.Map<Platform>(model);
 
@@ -64,6 +67,17 @@ namespace PlatformService.Controllers
             repository.SaveChanges();
 
             var platformReadDto = mapper.Map<PlatformReadDto>(platform);
+
+            try
+            {
+
+                await client.SendPlatformToCommand(platformReadDto);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Could not send command: {ex.Message}");
+            }
+
             return CreatedAtRoute(nameof(GetPlatform), new { id = platformReadDto.Id }, platformReadDto);
         }
     }
