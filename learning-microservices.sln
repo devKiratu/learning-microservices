@@ -7,11 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformService", "Platform
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{669CE78B-8942-4041-8B0E-F1FA73C39AD0}"
 	ProjectSection(SolutionItems) = preProject
+		k8s\commands-depl.yaml = k8s\commands-depl.yaml
 		platforms-depl.yaml = platforms-depl.yaml
 		platforms-np-srv.yaml = platforms-np-srv.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandsService", "CommandsService\CommandsService.csproj", "{6AF00724-E2C1-47CA-BCB6-5E4EB449204A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandsService", "CommandsService\CommandsService.csproj", "{6AF00724-E2C1-47CA-BCB6-5E4EB449204A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
