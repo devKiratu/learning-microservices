@@ -14,7 +14,7 @@ spec:
   spec: 
    containers:
     - name: platformservice
-      image: devkiratu/platformservice:v1
+      image: devkiratu/platformservice:latest
 ---
 apiVersion: v1
 kind: Service
