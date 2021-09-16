@@ -15,6 +15,12 @@ spec:
    containers:
     - name: platformservice
       image: devkiratu/platformservice:latest
+      env:
+       - name: ConnectionStrings__PlatformsConn
+         valueFrom:
+          secretKeyRef:
+           name: platformdbstring
+           key: ConnectionStrings__PlatformsConn
 ---
 apiVersion: v1
 kind: Service
