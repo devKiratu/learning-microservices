@@ -59,7 +59,7 @@ namespace PlatformService.Data
             }
             else
             {
-                Console.WriteLine("--> We already have data in the InMemoryDB");
+                Console.WriteLine("--> We already have data.");
             }
         }
     }
