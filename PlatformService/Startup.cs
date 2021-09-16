@@ -33,14 +33,14 @@ namespace PlatformService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (env.IsProduction()) 
+            if (env.IsProduction())
             {
                 Console.WriteLine("--> Using SqlServer Db");
                 services.AddDbContext<MainDbContext>(o =>
                 {
                     o.UseSqlServer(Configuration.GetConnectionString("PlatformsConn"));
                 });
-            } 
+            }
             else
             {
                 Console.WriteLine("--> Using InMem Db");
@@ -61,7 +61,7 @@ namespace PlatformService
             });
 
             //display CommandService endpoint from configuration, to test
-            Console.WriteLine($"Command Service endpoint: {Configuration["CommandService"]}");
+            Console.WriteLine($"--> Command Service endpoint: {Configuration["CommandService"]}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +85,7 @@ namespace PlatformService
                 endpoints.MapControllers();
             });
 
-            PrepDb.PrepDbPopulation(app);
+            PrepDb.PrepDbPopulation(app, env.IsProduction());
         }
     }
 }
