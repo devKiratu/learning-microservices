@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{669CE78B-894
 		k8s\mssql-plat-depl.yaml = k8s\mssql-plat-depl.yaml
 		k8s\platforms-depl.yaml = k8s\platforms-depl.yaml
 		k8s\platforms-np-srv.yaml = k8s\platforms-np-srv.yaml
+		k8s\rabbitmq-depl.yaml = k8s\rabbitmq-depl.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandsService", "CommandsService\CommandsService.csproj", "{6AF00724-E2C1-47CA-BCB6-5E4EB449204A}"
