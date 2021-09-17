@@ -36,7 +36,7 @@ namespace CommandsService.Controllers
                 return BadRequest($"Platform of id {platformId} does not exist");
             }
 
-            var commands = repository.GetCommandsForPlatform((platformId));
+            var commands = repository.GetCommandsForPlatform(platformId);
 
             return Ok(mapper.Map<IEnumerable<CommandReadDto>>(commands));
         }
