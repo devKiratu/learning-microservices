@@ -14,7 +14,7 @@ spec:
   spec: 
    containers:
     - name: commandsservice
-      image: devkiratu/commandsservice:v1
+      image: devkiratu/commandsservice:latest
 ---
 apiVersion: v1
 kind: Service
