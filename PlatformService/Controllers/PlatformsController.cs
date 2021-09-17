@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Dtos;
 using PlatformService.Models;
@@ -20,12 +21,17 @@ namespace PlatformService.Controllers
         private readonly IPlatformRepository repository;
         private readonly IMapper mapper;
         private readonly ICommandDataClient client;
+        private readonly IMessageBusClient messageBusClient;
 
-        public PlatformsController(IPlatformRepository repository, IMapper mapper, ICommandDataClient client)
+        public PlatformsController(IPlatformRepository repository,
+                                   IMapper mapper,
+                                   ICommandDataClient client,
+                                   IMessageBusClient messageBusClient)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this.client = client ?? throw new ArgumentNullException(nameof(client));
+            this.messageBusClient = messageBusClient ?? throw new ArgumentNullException(nameof(messageBusClient));
         }
 
         [HttpGet("{id}", Name = "GetPlatform")]
@@ -68,6 +74,7 @@ namespace PlatformService.Controllers
 
             var platformReadDto = mapper.Map<PlatformReadDto>(platform);
 
+            //send sync message
             try
             {
 
@@ -76,6 +83,19 @@ namespace PlatformService.Controllers
             catch(Exception ex)
             {
                 Console.WriteLine($"Could not send command: {ex.Message}");
+            }
+
+            //send async message
+            try
+            {
+                Console.WriteLine($"--> Publishing new platform");
+                var platformPublishedDto = mapper.Map<PlatformPublishedDto>(platformReadDto);
+                platformPublishedDto.Event = "Platform_Published";
+                messageBusClient.PublishNewPlatform(platformPublishedDto);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"--> Could not publish message: {ex.Message}");
             }
 
             return CreatedAtRoute(nameof(GetPlatform), new { id = platformReadDto.Id }, platformReadDto);
