@@ -65,7 +65,7 @@ namespace CommandsService.EventProcessing
                 {
                     repository.CreatePlatform(platform);
                     repository.SaveChanges();
-                    Console.WriteLine($"--> Platform already added! : {platform}");
+                    Console.WriteLine($"--> Platform added!");
                 }
                 else
                 {
