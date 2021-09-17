@@ -1,4 +1,5 @@
 using CommandsService.Data;
+using CommandsService.EventProcessing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,8 @@ namespace CommandsService
             services.AddControllers();
 
             services.AddScoped<ICommandRepository, CommandRepository>();
+
+            services.AddSingleton<IEventProcessor, EventProcessor>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
