@@ -2,7 +2,7 @@
 
 option csharp_namespace = "PlatformService";
 
-service GrpcPlatform(){
+service GrpcPlatform {
 	rpc GetAllPlatforms(GetAllRequest) returns (PlatformResponse);
 }
 
