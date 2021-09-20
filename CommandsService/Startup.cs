@@ -70,6 +70,8 @@ namespace CommandsService
             {
                 endpoints.MapControllers();
             });
+
+            PrepDb.PopulateData(app);
         }
     }
 }
