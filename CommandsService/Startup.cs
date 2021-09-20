@@ -1,6 +1,7 @@
 using CommandsService.AsyncDataServices;
 using CommandsService.Data;
 using CommandsService.EventProcessing;
+using CommandsService.SyncDataServices.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +36,7 @@ namespace CommandsService
             services.AddControllers();
 
             services.AddScoped<ICommandRepository, CommandRepository>();
+            services.AddScoped<IPlatformDataClient, PlatformDataClient>();
 
             services.AddSingleton<IEventProcessor, EventProcessor>();
 
